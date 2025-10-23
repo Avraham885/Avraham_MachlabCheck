@@ -1,0 +1,22 @@
+version: 1
+sheets:
+  - name: "Inventory"
+    required_columns:
+      - SKU
+      - Location
+      - Quantity
+      - UnitCost
+      - LastUpdate
+    column_types:
+      SKU: "string"
+      Location: "string"
+      Quantity: "int>=0"
+      UnitCost: "float>=0"
+      LastUpdate: "date"
+    checks:
+      - name: "no_negative_qty"
+        expr: "Quantity >= 0"
+        level: "error"
+      - name: "value_reasonable"
+        expr: "(Quantity * UnitCost) <= 1e8"
+        level: "warning"
