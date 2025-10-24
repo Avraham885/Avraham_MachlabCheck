@@ -1,3 +1,43 @@
+# ==== UI SHELL (Single Instance) ====
+import streamlit as st
+
+st.markdown("""
+<style>
+:root{
+  --bg: #0ea5e9; --bg2:#38bdf8; --ink:#0f172a; --sub:#475569;
+  --muted:#f1f5f9; --border:#e2e8f0; --accent:#2563eb; --accent-ink:#ffffff; --radius:14px;
+}
+html, body, [class*="css"] { direction: rtl; text-align: right; }
+.block-container { padding-top: 8px; padding-bottom: 18px; }
+section.main h1 { display: none; } /* hide any existing st.title to prevent duplicate headline */
+
+.hero { background: linear-gradient(90deg, var(--bg), var(--bg2)); color: white; padding: 22px 24px; border-radius: 20px; margin: 6px 0 16px 0; box-shadow: 0 8px 18px rgba(2,132,199,0.18); }
+.hero h1 { margin: 0; font-size: 30px; line-height: 1.15; font-weight: 800; letter-spacing: .2px; }
+.hero p { margin: 6px 0 0 0; font-size: 15px; opacity: .95; }
+
+.tip-banner { background: var(--muted); border: 1px solid var(--border); padding: .55rem .8rem; border-radius: 12px; margin: 8px 0 16px 0; font-size: 13px; color: var(--ink); }
+.section-title{ font-size: 18px; font-weight: 700; color: var(--ink); margin: 8px 0 6px 0; }
+hr { border: none; border-top: 1px solid var(--border); margin: 12px 0 14px 0; }
+
+[data-testid="stFileUploaderDropzone"]{ border-radius: 14px; background: #f8fbff; border: 1px dashed #b6cffc; }
+.stButton>button, .stDownloadButton>button{ border-radius: var(--radius); padding: .7rem 1.05rem; font-weight: 700; border: 1px solid var(--accent); background: var(--accent); color: var(--accent-ink); box-shadow: 0 4px 10px rgba(37,99,235,.18); }
+.stDownloadButton>button:hover, .stButton>button:hover{ opacity: .96; }
+
+.footer{ background: #fbfdff; border-top: 1px solid var(--border); padding: 10px 12px; border-radius: 14px; margin-top: 18px; color: #475569; font-size: 12px; text-align:center; }
+.footer b { color:#0f172a; }
+</style>
+""", unsafe_allow_html=True)
+
+st.markdown("""
+<div class="hero">
+  <h1>Machlab — גרסה מאוחדת (RTL)</h1>
+  <p>בדיקת דוח התחשבנות מחלב ואלכל. מעלים את הקבצים, לוחצים ‘בדיקה’, ומקבלים קובץ מעודכן להורדה — פשוט.</p>
+</div>
+<div class="tip-banner"><b>טיפ:</b> שמרו על שמות גיליונות זהים לתבנית כדי לקבל תוצאות מדויקות.</div>
+<div class="section-title">טעינת קבצים והפעלה</div>
+<hr/>
+""", unsafe_allow_html=True)
+# ==== END SHELL ====
 
 import streamlit as st
 import pandas as pd
@@ -304,8 +344,7 @@ if activity_file and internal_file:
         for msg in overall_msgs:
             st.success(msg)
 
-        st.download_button(
-            "📥 הורד/י קובץ פעילות מעודכן (שני הגיליונות + VLOOKUP עם MATCH על 'סופק')",
+        st.download_button("📥 הורדת הדוח המעודכן",
             data=out,
             file_name="Activity_Unified_All_Sheets_With_ROWDIFF_and_MATCH.py.xlsx",
             mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
@@ -316,3 +355,15 @@ if activity_file and internal_file:
         st.exception(e)
 else:
     st.info("נא להעלות את שני הקבצים (.xlsx).")
+
+
+
+
+# ==== FOOTER (Single Instance) ====
+st.markdown("""
+<div class="footer">
+  <div><b>נוצר ע״י:</b> אברהם מועלם, מנהל תפעול ומהנדס אוטומציות · <b>תאריך יצירה:</b> 24.10.2025</div>
+  <div style="margin-top:4px;">טיפ: כדי למנוע שגיאות מבנה — העלו תמיד גרסה עדכנית של קובץ ‘הובלות אלכל כללי’.</div>
+</div>
+""", unsafe_allow_html=True)
+# ==== END FOOTER ====
