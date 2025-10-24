@@ -1,5 +1,30 @@
 # ==== UI SHELL (Single Instance) ====
+import os
 import streamlit as st
+
+def load_password():
+    # 1) Streamlit secrets (Cloud או מקומי)
+    try:
+        return st.secrets["auth"]["password"]
+    except Exception:
+        pass
+    # 2) משתנה סביבה כגיבוי (אופציונלי)
+    return os.getenv("AUTH_PASSWORD")
+
+PASSWORD = load_password()
+st.title("🔐 הזדהות נדרשת")
+
+if not PASSWORD:
+    st.error("הסיסמה אינה מוגדרת. הגדירו .streamlit/secrets.toml מקומי או AUTH_PASSWORD בסביבה.")
+    st.stop()
+
+password = st.text_input("הזן/י סיסמה לגישה:", type="password")
+if password != PASSWORD:
+    st.warning("יש להזין סיסמה נכונה כדי להמשיך.")
+    st.stop()
+
+st.success("גישה מאושרת ✅")
+
 
 st.markdown("""
 <style>
