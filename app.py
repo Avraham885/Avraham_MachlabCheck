@@ -30,12 +30,10 @@ hr { border: none; border-top: 1px solid var(--border); margin: 12px 0 14px 0; }
 
 st.markdown("""
 <div class="hero">
-  <h1>Machlab — גרסה מאוחדת (RTL)</h1>
+  <h1>בדיקת דוח התחשבנות מחלב אלכל</h1>
   <p>בדיקת דוח התחשבנות מחלב ואלכל. מעלים את הקבצים, לוחצים ‘בדיקה’, ומקבלים קובץ מעודכן להורדה — פשוט.</p>
 </div>
 <div class="tip-banner"><b>טיפ:</b> שמרו על שמות גיליונות זהים לתבנית כדי לקבל תוצאות מדויקות.</div>
-<div class="section-title">טעינת קבצים והפעלה</div>
-<hr/>
 """, unsafe_allow_html=True)
 # ==== END SHELL ====
 
@@ -54,7 +52,7 @@ html, body, [class*="css"]  { direction: rtl; text-align: right; }
 </style>
 """, unsafe_allow_html=True)
 
-st.title("Machlab – גרסה מאוחדת (RTL)")
+st.title("העלאת קבצים")
 st.caption("מעלה שני קבצים (פעילות + 'הובלות אלכל כללי'), מעתיק גיליון פנימי, מוסיף עמודות חסרות ומזריק נוסחאות. "
            "VLOOKUP משתמש ב-MATCH דינמי לעמודה 'סופק'. כל ההזרקות נעצרות בשורה האחרונה של 'הזמנות לבדיקה'. "
            "הסקריפט מוחל גם על 'הובלה לבית לקוח' וגם על 'הובלה לסוחר'.")
@@ -363,7 +361,9 @@ else:
 st.markdown("""
 <div class="footer">
   <div><b>נוצר ע״י:</b> אברהם מועלם, מנהל תפעול ומהנדס אוטומציות · <b>תאריך יצירה:</b> 24.10.2025</div>
+  <div>© כל הזכויות שמורות 🧩</div>
   <div style="margin-top:4px;">טיפ: כדי למנוע שגיאות מבנה — העלו תמיד גרסה עדכנית של קובץ ‘הובלות אלכל כללי’.</div>
+            
 </div>
 """, unsafe_allow_html=True)
 # ==== END FOOTER ====
