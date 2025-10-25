@@ -3,27 +3,38 @@ import os
 import streamlit as st
 
 def load_password():
-    # 1) Streamlit secrets (Cloud או מקומי)
     try:
         return st.secrets["auth"]["password"]
     except Exception:
-        pass
-    # 2) משתנה סביבה כגיבוי (אופציונלי)
-    return os.getenv("AUTH_PASSWORD")
+        return os.getenv("AUTH_PASSWORD")
 
-PASSWORD = load_password()
-st.title("🔐 הזדהות נדרשת")
+def require_auth():
+    if st.session_state.get("auth_ok"):
+        return
 
-if not PASSWORD:
-    st.error("הסיסמה אינה מוגדרת. הגדירו .streamlit/secrets.toml מקומי או AUTH_PASSWORD בסביבה.")
-    st.stop()
+    PASSWORD = load_password()
+    if not PASSWORD:
+        st.error("הסיסמה אינה מוגדרת. הגדירו .streamlit/secrets.toml או AUTH_PASSWORD בסביבה.")
+        st.stop()
 
-password = st.text_input("הזן/י סיסמה לגישה:", type="password")
-if password != PASSWORD:
-    st.warning("יש להזין סיסמה נכונה כדי להמשיך.")
-    st.stop()
+    login_box = st.empty()
+    with login_box.container():
+        with st.form("auth_form", clear_on_submit=True):
+            pwd = st.text_input("הקלד/י סיסמה:", type="password")
+            submitted = st.form_submit_button("כניסה")
 
-st.success("גישה מאושרת ✅")
+    if not submitted:
+        st.stop()
+
+    if pwd != PASSWORD:
+        st.warning("סיסמה שגויה. נסה/י שוב.")
+        st.stop()
+
+    st.session_state["auth_ok"] = True
+    login_box.empty()
+    st.rerun()
+
+require_auth()
 
 
 st.markdown("""
